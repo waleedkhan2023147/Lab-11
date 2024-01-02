@@ -1,0 +1,39 @@
+"""
+Python program to implement a custom iterator that calculates prime numbers up to a given range.
+"""
+
+class PrimeNumberIterator:
+    def __init__(self, max_limit):
+        self.max_limit = max_limit
+        self.current = 2
+
+    def is_prime(self, num):
+        for i in range(2, int(num**0.5) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        while self.current <= self.max_limit:
+            if self.is_prime(self.current):
+                prime_number = self.current
+                self.current += 1
+                return prime_number
+            self.current += 1
+        raise StopIteration
+
+if __name__ == "__main__":
+    try:
+        range_limit = int(input("Enter the upper limit for prime numbers: "))
+        if range_limit < 2:
+            print("Please enter a valid upper limit greater than or equal to 2.")
+        else:
+            prime_iterator = PrimeNumberIterator(range_limit)
+            print(f"Prime numbers up to {range_limit}:")
+            for prime in prime_iterator:
+                print(prime, end=' ')
+    except ValueError:
+        print("Invalid input. Please enter a valid integer for the upper limit.")
