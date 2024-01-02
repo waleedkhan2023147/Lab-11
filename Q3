@@ -1,0 +1,30 @@
+# Program to create an iterator for powers of 2 in a given range
+
+class PowerOfTwoIterator:
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+
+    def __iter__(self):
+        self.current = self.start
+        return self
+
+    def __next__(self):
+        if self.current > self.end:
+            raise StopIteration
+        else:
+            result = 2 ** self.current
+            self.current += 1
+            return result
+
+# Get user input for range
+start_range = int(input("Enter the start of the range: "))
+end_range = int(input("Enter the end of the range: "))
+
+# Create an iterator object
+power_of_two_iterator = PowerOfTwoIterator(start_range, end_range)
+
+# Iterate over the powers of 2 and print them
+print(f"Powers of 2 in the range {start_range} to {end_range}:")
+for power in power_of_two_iterator:
+    print(power)
